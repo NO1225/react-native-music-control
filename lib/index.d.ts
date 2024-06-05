@@ -1,6 +1,52 @@
-import { Command } from './types';
+import { Command } from "./types";
 export { Command };
-declare type TPlayingInfo = any;
+declare type TSetPlayingInfo = {
+    title?: string;
+    artist?: string;
+    album?: string;
+    genre?: string;
+    description?: string;
+    date?: string;
+    duration?: number;
+    color?: number;
+    colorized?: boolean;
+    notificationIcon?: string;
+    rating?: number | boolean;
+    artwork?: string | {
+        uri: string;
+    };
+};
+declare type TUpdatePlayingInfo = {
+    bufferedTime?: number;
+    speed?: number;
+    state?: number;
+    maxVolume?: number;
+    volume?: number;
+    rating?: number;
+    elapsedTime?: number;
+};
+declare type TOnSeekCommand = {
+    actionCommand: Command.seek;
+    cb: (position: number) => void;
+};
+declare type TOnSetRatingCommand = {
+    actionCommand: Command.setRating;
+    cb: (rating: number) => void;
+};
+declare type TOnVolumeChangedCommand = {
+    actionCommand: Command.volume;
+    cb: (volume: number) => void;
+};
+declare type TOnCommand = {
+    actionCommand: Command.play | Command.pause | Command.stop | Command.nextTrack | Command.previousTrack | Command.skipForward | Command.skipBackward;
+    cb: () => void;
+} | TOnSeekCommand | TOnSetRatingCommand | TOnVolumeChangedCommand;
+declare type TControl = "skipForward" | "skipBackward" | "nextTrack" | "previousTrack" | "play" | "pause" | "togglePlayPause" | "stop" | "seek" | "setRating" | "volume" | "remoteVolume" | "closeNotification";
+declare type TNotificationCloseOptions = "always" | "paused" | "never";
+declare type TControlOptions = {
+    interval?: number;
+    when?: TNotificationCloseOptions;
+};
 declare const MusicControl: {
     STATE_PLAYING: any;
     STATE_PAUSED: any;
@@ -14,14 +60,14 @@ declare const MusicControl: {
     RATING_5_STARS: any;
     RATING_PERCENTAGE: any;
     enableBackgroundMode: (enable: boolean) => void;
-    setNowPlaying: (info: TPlayingInfo) => void;
-    setPlayback: (info: TPlayingInfo) => void;
-    updatePlayback: (info: TPlayingInfo) => void;
+    setNowPlaying: (info: TSetPlayingInfo) => void;
+    setPlayback: (info: TUpdatePlayingInfo) => void;
+    updatePlayback: (info: TUpdatePlayingInfo) => void;
     resetNowPlaying: () => void;
-    enableControl: (controlName: string, enable: boolean, options?: {}) => void;
+    enableControl: (controlName: TControl, enable: boolean, options?: TControlOptions) => void;
     handleCommand: (commandName: Command, value: any) => void;
     setNotificationId: (notificationId: any, channelId: any) => void;
-    on: (actionName: Command, cb: (value: any) => void) => void;
+    on: (onCommand: TOnCommand) => void;
     off: (actionName: Command) => void;
     stopControl: () => void;
     handleAudioInterruptions: (enable: boolean) => void;
