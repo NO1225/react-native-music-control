@@ -9,6 +9,8 @@ jobs:
       contents: write
       packages: write 
     steps:
+      - uses: actions/checkout@v4
+
       - uses: vimtor/action-update-version@v1
         with:
           files: './package.json'
