@@ -22,8 +22,9 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com'
-          
-      - run: npm i  
-      - run: npm publish
+          scope: '@no1225'
+
+      - run: yarn
+      - run: yarn npm publish // for Yarn version 1, use `yarn publish` instead
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
