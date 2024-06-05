@@ -41,7 +41,9 @@ declare type TOnCommand = {
     actionCommand: Command.play | Command.pause | Command.stop | Command.nextTrack | Command.previousTrack | Command.skipForward | Command.skipBackward;
     cb: () => void;
 } | TOnSeekCommand | TOnSetRatingCommand | TOnVolumeChangedCommand;
-declare type TControl = "skipForward" | "skipBackward" | "nextTrack" | "previousTrack" | "play" | "pause" | "togglePlayPause" | "stop" | "seek" | "setRating" | "volume" | "remoteVolume" | "closeNotification";
+declare type TAndroidControl = "skipForward" | "skipBackward" | "nextTrack" | "previousTrack" | "play" | "pause" | "togglePlayPause" | "stop" | "seek" | "setRating" | "volume" | "remoteVolume" | "closeNotification";
+declare type TIosControl = "pause" | "play" | "changePlaybackPosition" | "stop" | "togglePlayPause" | "enableLanguageOption" | "disableLanguageOption" | "nextTrack" | "previousTrack" | "seekForward" | "seekBackward" | "skipBackward" | "skipForward";
+declare type TControl = TAndroidControl | TIosControl;
 declare type TNotificationCloseOptions = "always" | "paused" | "never";
 declare type TControlOptions = {
     interval?: number;

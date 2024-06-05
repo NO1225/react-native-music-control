@@ -76,7 +76,7 @@ type TOnCommand =
   | TOnSetRatingCommand
   | TOnVolumeChangedCommand;
 
-type TControl =
+type TAndroidControl =
   | "skipForward"
   | "skipBackward"
   | "nextTrack"
@@ -90,6 +90,23 @@ type TControl =
   | "volume"
   | "remoteVolume"
   | "closeNotification";
+
+type TIosControl =
+  | "pause"
+  | "play"
+  | "changePlaybackPosition"
+  | "stop"
+  | "togglePlayPause"
+  | "enableLanguageOption"
+  | "disableLanguageOption"
+  | "nextTrack"
+  | "previousTrack"
+  | "seekForward"
+  | "seekBackward"
+  | "skipBackward"
+  | "skipForward";
+
+type TControl = TAndroidControl | TIosControl;
 
 type TNotificationCloseOptions = "always" | "paused" | "never";
 
