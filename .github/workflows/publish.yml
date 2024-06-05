@@ -5,6 +5,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest 
+    permissions: 
+      contents: write
+      packages: write 
     steps:
       - uses: vimtor/action-update-version@v1
         with:
