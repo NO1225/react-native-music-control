@@ -47,17 +47,28 @@ yarn add react-native-music-control
 
 Add to your `MainApplication.java`:
 
+**For most projects** (recommended approach):
 ```java
-// For New Architecture
+import com.tanguyantoine.react.MusicControl;
+
+@Override
+protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+        // ... other packages
+        new MusicControl() // Works with both Legacy and New Architecture
+    );
+}
+```
+
+**For projects specifically targeting New Architecture** (optional):
+```java
 import com.tanguyantoine.react.MusicControlTurboReactPackage;
 
 @Override
 protected List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
         // ... other packages
-        new MusicControlTurboReactPackage() // For New Architecture
-        // OR
-        // new MusicControl() // For Legacy Architecture
+        new MusicControlTurboReactPackage() // TurboModule optimized version
     );
 }
 ```

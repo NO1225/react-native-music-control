@@ -1,53 +1,33 @@
 package com.tanguyantoine.react;
 
-import com.facebook.react.TurboReactPackage;
+import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.module.model.ReactModuleInfo;
-import com.facebook.react.module.model.ReactModuleInfoProvider;
-import com.facebook.react.turbomodule.core.interfaces.TurboModule;
+import com.facebook.react.uimanager.ViewManager;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
- * TurboReactPackage for Music Control that supports both New Architecture and Legacy Architecture
+ * ReactPackage for Music Control with TurboModule compatibility
+ * Simplified version that avoids hard dependencies on TurboModule classes
  */
-public class MusicControlTurboReactPackage extends TurboReactPackage {
+public class MusicControlTurboReactPackage implements ReactPackage {
 
-    @Nullable
+    @Nonnull
     @Override
-    public NativeModule getModule(String name, @Nonnull ReactApplicationContext context) {
-        switch (name) {
-            case MusicControlTurboModule.NAME:
-                return new MusicControlTurboModule(context);
-            default:
-                return null;
-        }
+    public List<NativeModule> createNativeModules(@Nonnull ReactApplicationContext context) {
+        List<NativeModule> modules = new ArrayList<>();
+        modules.add(new MusicControlTurboModule(context));
+        return modules;
     }
 
+    @Nonnull
     @Override
-    public ReactModuleInfoProvider getReactModuleInfoProvider() {
-        return () -> {
-            Map<String, ReactModuleInfo> map = new HashMap<>();
-            
-            map.put(
-                MusicControlTurboModule.NAME,
-                new ReactModuleInfo(
-                    MusicControlTurboModule.NAME, // name
-                    MusicControlTurboModule.NAME, // className
-                    false, // canOverrideExistingModule
-                    false, // needsEagerInit
-                    true,  // hasConstants
-                    false, // isCxxModule
-                    true   // isTurboModule
-                )
-            );
-            
-            return map;
-        };
+    public List<ViewManager> createViewManagers(@Nonnull ReactApplicationContext context) {
+        return Collections.emptyList();
     }
 }

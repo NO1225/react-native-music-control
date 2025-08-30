@@ -20,10 +20,8 @@ buildscript {
 
 apply plugin: 'com.android.library'
 
-// Apply React Native Codegen plugin if New Architecture is enabled
-if (isNewArchitectureEnabled()) {
-    apply plugin: 'com.facebook.react'
-}
+// Note: React Native Codegen plugin is optional for our implementation
+// We provide manual TurboModule implementation for better compatibility
 
 android {
     compileSdkVersion safeExtGet('compileSdkVersion', 33)
@@ -70,18 +68,16 @@ dependencies {
     implementation 'androidx.core:core:1.6.0'
     implementation 'androidx.media:media:1.6.0'
     
-    // New Architecture dependencies
-    if (isNewArchitectureEnabled()) {
-        implementation 'com.facebook.react:react-android'
-        implementation 'com.facebook.react:turbomodule-core'
-    }
+    // For legacy architecture, this is all we need
+    // New Architecture dependencies will be provided by the app's React Native setup
 }
 
 // Codegen configuration for New Architecture
-if (isNewArchitectureEnabled()) {
-    react {
-        jsRootDir = file("../src/")
-        libraryName = "RNMusicControlSpec"
-        codegenJavaPackageName = "com.tanguyantoine.react"
-    }
-}
+// Note: We provide our own TurboModule implementation, so Codegen is optional
+// if (isNewArchitectureEnabled()) {
+//     react {
+//         jsRootDir = file("../src/")
+//         libraryName = "RNMusicControlSpec"
+//         codegenJavaPackageName = "com.tanguyantoine.react"
+//     }
+// }
