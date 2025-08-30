@@ -108,7 +108,7 @@ MusicControlSafe.on('nextTrack', () => {
 - Adds `MODIFY_AUDIO_SETTINGS` permission for audio focus management
 - Adds `FOREGROUND_SERVICE_MEDIA_PLAYBACK` permission for Android 14+
 - Sets `MainActivity` launch mode to `singleTask` for proper notification handling
-- Ensures proper native module registration in MainApplication.java
+- Module registration is handled automatically by React Native autolinking
 
 ### iOS Configuration
 - Adds `audio` background mode for continuous audio playback
@@ -162,14 +162,9 @@ expo run:android
   </array>
   ```
 
-### Check 6: Verify MainApplication.java
-Check that `android/app/src/main/java/.../MainApplication.java` includes:
-```java
-import com.tanguyantoine.react.MusicControlPackage;
-
-// In getPackages() method:
-packages.add(new MusicControlPackage());
-```
+### Check 6: Verify Module Registration (Automatic)
+The module is now registered automatically via React Native autolinking.
+No manual configuration needed in MainApplication.java.
 
 ## Alternative Libraries
 

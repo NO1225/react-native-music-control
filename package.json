@@ -32,6 +32,9 @@
     "react": "*",
     "react-native": ">=0.68.0"
   },
+  "react-native": {
+    "codegen": false
+  },
   "scripts": {
     "prepublish": "tsc -p tsconfig.json",
     "start": "tsc -p tsconfig.json -w",

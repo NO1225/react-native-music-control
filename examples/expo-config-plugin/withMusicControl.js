@@ -6,6 +6,9 @@ const { withAndroidManifest, withInfoPlist, withMainApplication } = require('@ex
  * This plugin configures the necessary permissions and settings
  * for react-native-music-control to work in an Expo development build.
  * 
+ * The module registration is handled automatically by React Native autolinking.
+ * This plugin only adds the required permissions and configurations.
+ * 
  * Usage:
  * 1. Copy this file to your Expo project (e.g., plugins/withMusicControl.js)
  * 2. Add "./plugins/withMusicControl" to the plugins array in your app.json
@@ -56,28 +59,8 @@ module.exports = function withMusicControl(config) {
     return config;
   });
 
-  // Ensure MainApplication.java registers the module correctly
-  config = withMainApplication(config, (config) => {
-    const mainApplicationJava = config.modResults.contents;
-    
-    // Check if import is already present
-    if (!mainApplicationJava.includes('import com.tanguyantoine.react.MusicControlPackage;')) {
-      config.modResults.contents = mainApplicationJava.replace(
-        /(import.*react\.ReactPackage;\s*)/,
-        '$1import com.tanguyantoine.react.MusicControlPackage;\n'
-      );
-    }
-    
-    // Check if package is added to getPackages
-    if (!mainApplicationJava.includes('new MusicControlPackage()')) {
-      config.modResults.contents = config.modResults.contents.replace(
-        /(packages\.add\(new MainReactPackage\(\)\);)/,
-        '$1\n        packages.add(new MusicControlPackage());'
-      );
-    }
-    
-    return config;
-  });
+  // Note: Module registration is now handled automatically by React Native autolinking
+  // No need to manually modify MainApplication.java
   
   // Configure iOS
   config = withInfoPlist(config, (config) => {
