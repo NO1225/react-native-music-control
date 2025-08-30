@@ -16,7 +16,37 @@ import { Command } from "./types";
 
 export { Command };
 
-const NativeMusicControl = NativeModules.MusicControlManager;
+// Module selection: Try TurboModule first, fallback to legacy
+let NativeMusicControl: any;
+let isTurboModuleEnabled = false;
+
+// Import strategy for different architectures
+function initializeNativeModule() {
+  try {
+    // First try to get TurboModule (this will be available in New Architecture)
+    const TurboModuleRegistry = NativeModules.TurboModuleRegistry;
+    if (TurboModuleRegistry) {
+      try {
+        NativeMusicControl = TurboModuleRegistry.get('MusicControlManager');
+        if (NativeMusicControl) {
+          isTurboModuleEnabled = true;
+          return;
+        }
+      } catch (turboError) {
+        console.log('TurboModule not available, falling back to legacy');
+      }
+    }
+  } catch (e) {
+    // TurboModuleRegistry not available
+  }
+  
+  // Fallback to legacy module
+  NativeMusicControl = NativeModules.MusicControlManager;
+  isTurboModuleEnabled = false;
+}
+
+// Initialize the native module
+initializeNativeModule();
 let handlers: { [key in Command]?: (value: any) => void } = {};
 let listenerOfNativeMusicControl: any = null;
 const IS_ANDROID = Platform.OS === "android";
@@ -172,13 +202,37 @@ const MusicControl = {
   },
   on: function (onCommand: TOnCommand) {
     if (!listenerOfNativeMusicControl) {
-      listenerOfNativeMusicControl = (
-        IS_ANDROID
-          ? DeviceEventEmitter
-          : new NativeEventEmitter(NativeMusicControl)
-      ).addListener("RNMusicControlEvent", (event) => {
-        MusicControl.handleCommand(event.name, event.value);
-      });
+      if (isTurboModuleEnabled) {
+        // New Architecture - TurboModule with event emitter
+        try {
+          // For TurboModules, we still use the traditional event emitter approach
+          // since TurboModules can still emit events via DeviceEventEmitter (Android) or RCTEventEmitter (iOS)
+          listenerOfNativeMusicControl = (
+            IS_ANDROID
+              ? DeviceEventEmitter
+              : new NativeEventEmitter(NativeMusicControl)
+          ).addListener("RNMusicControlEvent", (event) => {
+            MusicControl.handleCommand(event.name, event.value);
+          });
+          
+          // Notify the TurboModule that we're listening for events
+          NativeMusicControl?.addListener?.("RNMusicControlEvent");
+        } catch (error) {
+          console.warn('TurboModule event setup failed, falling back to legacy:', error);
+          isTurboModuleEnabled = false;
+        }
+      }
+      
+      if (!isTurboModuleEnabled) {
+        // Legacy Architecture
+        listenerOfNativeMusicControl = (
+          IS_ANDROID
+            ? DeviceEventEmitter
+            : new NativeEventEmitter(NativeMusicControl)
+        ).addListener("RNMusicControlEvent", (event) => {
+          MusicControl.handleCommand(event.name, event.value);
+        });
+      }
     }
     handlers[onCommand.actionCommand] = onCommand.cb;
   },
@@ -187,6 +241,11 @@ const MusicControl = {
     if (!Object.keys(handlers).length && listenerOfNativeMusicControl) {
       listenerOfNativeMusicControl.remove();
       listenerOfNativeMusicControl = null;
+      
+      // Notify TurboModule that we're no longer listening
+      if (isTurboModuleEnabled) {
+        NativeMusicControl?.removeListeners?.(1);
+      }
     }
   },
   stopControl: function (): void {

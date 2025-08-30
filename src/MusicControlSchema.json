@@ -1,0 +1,198 @@
+{
+  "modules": {
+    "NativeMusicControl": {
+      "type": "NativeModule",
+      "aliasMap": {},
+      "enumMap": {},
+      "spec": {
+        "properties": [
+          {
+            "name": "enableBackgroundMode",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "enable",
+                  "typeAnnotation": {
+                    "type": "BooleanTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "setNowPlaying",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "info",
+                  "typeAnnotation": {
+                    "type": "GenericObjectTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "updatePlayback",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "info",
+                  "typeAnnotation": {
+                    "type": "GenericObjectTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "resetNowPlaying",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "stopControl",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "enableControl",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "controlName",
+                  "typeAnnotation": {
+                    "type": "StringTypeAnnotation"
+                  }
+                },
+                {
+                  "name": "enable",
+                  "typeAnnotation": {
+                    "type": "BooleanTypeAnnotation"
+                  }
+                },
+                {
+                  "name": "options",
+                  "typeAnnotation": {
+                    "type": "GenericObjectTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "setNotificationIds",
+            "optional": true,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "notificationId",
+                  "typeAnnotation": {
+                    "type": "NumberTypeAnnotation"
+                  }
+                },
+                {
+                  "name": "channelId",
+                  "typeAnnotation": {
+                    "type": "StringTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "observeAudioInterruptions",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "enable",
+                  "typeAnnotation": {
+                    "type": "BooleanTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "addListener",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "eventName",
+                  "typeAnnotation": {
+                    "type": "StringTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          },
+          {
+            "name": "removeListeners",
+            "optional": false,
+            "typeAnnotation": {
+              "type": "FunctionTypeAnnotation",
+              "params": [
+                {
+                  "name": "count",
+                  "typeAnnotation": {
+                    "type": "NumberTypeAnnotation"
+                  }
+                }
+              ],
+              "returnTypeAnnotation": {
+                "type": "VoidTypeAnnotation"
+              }
+            }
+          }
+        ]
+      },
+      "moduleName": "MusicControlManager"
+    }
+  }
+}

@@ -59,5 +59,13 @@
 
     // TODO: remove this line when we upgrade react native dependencies
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "lib/**/*",
+    "node_modules/**/*",
+    "examples/**/*"
+  ]
 }

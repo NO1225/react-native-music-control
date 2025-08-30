@@ -1,9 +1,3 @@
-⚠️ **NO LONGER MAINTAINED** ⚠️
-
-Please use [react-native-track-player](https://github.com/doublesymmetry/react-native-track-player) instead ✅
-
----
-
 ## react-native-music-control
 
 Display and manage media controls on lock screen and notification center for iOS and Android.
@@ -45,6 +39,37 @@ npm install react-native-music-control --save
       android:name=".MainActivity"
       android:launchMode="singleTask">
     ```
+
+## Expo Compatibility
+
+This library requires native code and cannot be used in Expo's managed workflow. However, it can be used with Expo development builds.
+
+### Using with Expo Development Build
+
+1. **Install the package**:
+   ```bash
+   npm install react-native-music-control
+   ```
+
+2. **Use the provided config plugin**:
+   Copy the config plugin from `examples/expo-config-plugin/withMusicControl.js` to your project's `plugins` directory.
+
+3. **Configure your app.json**:
+   ```json
+   {
+     "expo": {
+       "plugins": ["./plugins/withMusicControl"]
+     }
+   }
+   ```
+
+4. **Create development build**:
+   ```bash
+   expo prebuild
+   expo run:ios  # or expo run:android
+   ```
+
+See the complete example and documentation in the [`examples/expo-config-plugin`](./examples/expo-config-plugin) directory.
 
 ## For React Native < v0.60
 

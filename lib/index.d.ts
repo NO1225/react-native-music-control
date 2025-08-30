@@ -1,6 +1,6 @@
 import { Command } from "./types";
 export { Command };
-declare type TSetPlayingInfo = {
+type TSetPlayingInfo = {
     title?: string;
     artist?: string;
     album?: string;
@@ -16,7 +16,7 @@ declare type TSetPlayingInfo = {
         uri: string;
     };
 };
-declare type TUpdatePlayingInfo = {
+type TUpdatePlayingInfo = {
     bufferedTime?: number;
     speed?: number;
     state?: number;
@@ -25,27 +25,27 @@ declare type TUpdatePlayingInfo = {
     rating?: number;
     elapsedTime?: number;
 };
-declare type TOnSeekCommand = {
+type TOnSeekCommand = {
     actionCommand: Command.seek;
     cb: (position: number) => void;
 };
-declare type TOnSetRatingCommand = {
+type TOnSetRatingCommand = {
     actionCommand: Command.setRating;
     cb: (rating: number) => void;
 };
-declare type TOnVolumeChangedCommand = {
+type TOnVolumeChangedCommand = {
     actionCommand: Command.volume;
     cb: (volume: number) => void;
 };
-declare type TOnCommand = {
+type TOnCommand = {
     actionCommand: Command.play | Command.pause | Command.stop | Command.nextTrack | Command.previousTrack | Command.skipForward | Command.skipBackward;
     cb: () => void;
 } | TOnSeekCommand | TOnSetRatingCommand | TOnVolumeChangedCommand;
-declare type TAndroidControl = "skipForward" | "skipBackward" | "nextTrack" | "previousTrack" | "play" | "pause" | "togglePlayPause" | "stop" | "seek" | "setRating" | "volume" | "remoteVolume" | "closeNotification";
-declare type TIosControl = "pause" | "play" | "changePlaybackPosition" | "stop" | "togglePlayPause" | "enableLanguageOption" | "disableLanguageOption" | "nextTrack" | "previousTrack" | "seekForward" | "seekBackward" | "skipBackward" | "skipForward";
-declare type TControl = TAndroidControl | TIosControl;
-declare type TNotificationCloseOptions = "always" | "paused" | "never";
-declare type TControlOptions = {
+type TAndroidControl = "skipForward" | "skipBackward" | "nextTrack" | "previousTrack" | "play" | "pause" | "togglePlayPause" | "stop" | "seek" | "setRating" | "volume" | "remoteVolume" | "closeNotification";
+type TIosControl = "pause" | "play" | "changePlaybackPosition" | "stop" | "togglePlayPause" | "enableLanguageOption" | "disableLanguageOption" | "nextTrack" | "previousTrack" | "seekForward" | "seekBackward" | "skipBackward" | "skipForward";
+type TControl = TAndroidControl | TIosControl;
+type TNotificationCloseOptions = "always" | "paused" | "never";
+type TControlOptions = {
     interval?: number;
     when?: TNotificationCloseOptions;
 };

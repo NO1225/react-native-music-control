@@ -76,9 +76,19 @@ public class MusicControlModule extends ReactContextBaseJavaModule implements Co
 
     private String channelId = "react-native-music-control";
     private int notificationId = 100;
+    
+    // Event forwarder for TurboModule compatibility
+    private MusicControlTurboModule.MusicControlEventForwarder eventForwarder;
 
     public MusicControlModule(ReactApplicationContext context) {
         super(context);
+    }
+    
+    /**
+     * Set event forwarder for TurboModule compatibility
+     */
+    public void setEventForwarder(MusicControlTurboModule.MusicControlEventForwarder forwarder) {
+        this.eventForwarder = forwarder;
     }
 
     @Override
@@ -162,7 +172,7 @@ public class MusicControlModule extends ReactContextBaseJavaModule implements Co
 
         context = getReactApplicationContext();
 
-        emitter = new MusicControlEventEmitter(context, notificationId);
+        emitter = new MusicControlEventEmitter(context, notificationId, eventForwarder);
 
         session = new MediaSessionCompat(context, "MusicControl");
         session.setFlags(MediaSessionCompat.FLAG_HANDLES_MEDIA_BUTTONS |
