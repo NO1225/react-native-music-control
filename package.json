@@ -32,14 +32,6 @@
     "react": "*",
     "react-native": ">=0.68.0"
   },
-  "codegenConfig": {
-    "name": "RNMusicControlSpec",
-    "type": "modules",
-    "jsSrcsDir": "src",
-    "android": {
-      "javaPackageName": "com.tanguyantoine.react"
-    }
-  },
   "scripts": {
     "prepublish": "tsc -p tsconfig.json",
     "start": "tsc -p tsconfig.json -w",
