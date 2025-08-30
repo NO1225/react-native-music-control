@@ -432,7 +432,7 @@ public class MusicControlModule extends ReactContextBaseJavaModule implements Co
             artworkThread.start();
         } else {
             md.putBitmap(MediaMetadataCompat.METADATA_KEY_ART, null);
-            nb.setLargeIcon(null);
+            nb.setLargeIcon((Bitmap) null);
         }
 
         session.setMetadata(md.build());
