@@ -51,4 +51,5 @@ export interface Spec extends TurboModule {
   removeListeners(count: number): void;
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>('MusicControlManager');
+// Use get instead of getEnforcing to avoid forcing codegen
+export default TurboModuleRegistry.get<Spec>('MusicControlManager');

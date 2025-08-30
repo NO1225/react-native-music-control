@@ -37,5 +37,5 @@ export interface Spec extends TurboModule {
     addListener(eventName: string): void;
     removeListeners(count: number): void;
 }
-declare const _default: Spec;
+declare const _default: Spec | null;
 export default _default;
