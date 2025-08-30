@@ -78,7 +78,7 @@ dependencies {
 if (isNewArchitectureEnabled()) {
     react {
         jsRootDir = file("../src/")
-        libraryName = "RNMusicControlSpec"
+        libraryName = "MusicControlSpec"
         codegenJavaPackageName = "com.tanguyantoine.react"
     }
 }

@@ -52,4 +52,5 @@ export interface Spec extends TurboModule {
 }
 
 // Use get instead of getEnforcing to avoid forcing codegen
+// This will return null if TurboModule is not available/registered
 export default TurboModuleRegistry.get<Spec>('MusicControlManager');

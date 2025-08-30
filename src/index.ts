@@ -13,6 +13,7 @@ import resolveAssetSource from "react-native/Libraries/Image/resolveAssetSource"
 // @ts-ignore
 import constants from "./constants";
 import { Command } from "./types";
+import NativeMusicControlSpec from "./NativeMusicControl";
 
 export { Command };
 
@@ -22,31 +23,40 @@ let isTurboModuleEnabled = false;
 
 // Import strategy for different architectures
 function initializeNativeModule() {
+  // First try TurboModule (New Architecture)
   try {
-    // First try to get TurboModule (this will be available in New Architecture)
-    const TurboModuleRegistry = NativeModules.TurboModuleRegistry;
-    if (TurboModuleRegistry) {
-      try {
-        NativeMusicControl = TurboModuleRegistry.get('MusicControlManager');
-        if (NativeMusicControl) {
-          isTurboModuleEnabled = true;
-          return;
-        }
-      } catch (turboError) {
-        console.log('TurboModule not available, falling back to legacy');
-      }
+    if (NativeMusicControlSpec !== null && NativeMusicControlSpec !== undefined) {
+      NativeMusicControl = NativeMusicControlSpec;
+      isTurboModuleEnabled = true;
+      console.log('Using TurboModule architecture');
+      return;
     }
   } catch (e) {
-    // TurboModuleRegistry not available
+    console.log('TurboModule not available, falling back to legacy:', e);
   }
   
   // Fallback to legacy module
   NativeMusicControl = NativeModules.MusicControlManager;
   isTurboModuleEnabled = false;
+  console.log('Using legacy module architecture');
+  
+  // Verify the module is available
+  if (!NativeMusicControl) {
+    console.error('MusicControlManager native module not found');
+  } else {
+    console.log('Available methods:', Object.keys(NativeMusicControl));
+  }
 }
 
 // Initialize the native module
 initializeNativeModule();
+
+// Debug: Log what we found
+console.log('NativeMusicControl initialized:', !!NativeMusicControl);
+console.log('isTurboModuleEnabled:', isTurboModuleEnabled);
+console.log('Available native modules:', Object.keys(NativeModules));
+console.log('TurboModuleRegistry available:', !!NativeModules.TurboModuleRegistry);
+
 let handlers: { [key in Command]?: (value: any) => void } = {};
 let listenerOfNativeMusicControl: any = null;
 const IS_ANDROID = Platform.OS === "android";
@@ -162,6 +172,14 @@ const MusicControl = {
   RATING_PERCENTAGE: constants.RATING_PERCENTAGE,
 
   enableBackgroundMode: function (enable: boolean) {
+    if (!NativeMusicControl) {
+      console.error('NativeMusicControl is not available. Make sure the native module is properly linked.');
+      return;
+    }
+    if (typeof NativeMusicControl.enableBackgroundMode !== 'function') {
+      console.error('enableBackgroundMode method not found on native module. Available methods:', Object.keys(NativeMusicControl));
+      return;
+    }
     NativeMusicControl.enableBackgroundMode(enable);
   },
   setNowPlaying: function (info: TSetPlayingInfo) {
