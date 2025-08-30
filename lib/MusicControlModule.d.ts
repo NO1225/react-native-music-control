@@ -1,5 +1,5 @@
 import type { TurboModule } from 'react-native';
-export interface Spec extends TurboModule {
+export interface MusicControlTurboInterface extends TurboModule {
     enableBackgroundMode(enable: boolean): void;
     setNowPlaying(info: {
         title?: string;
@@ -37,5 +37,5 @@ export interface Spec extends TurboModule {
     addListener(eventName: string): void;
     removeListeners(count: number): void;
 }
-declare const _default: Spec | null;
+declare const _default: MusicControlTurboInterface | null;
 export default _default;

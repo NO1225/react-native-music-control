@@ -1,7 +1,7 @@
 import type { TurboModule } from 'react-native';
 import { TurboModuleRegistry } from 'react-native';
 
-export interface Spec extends TurboModule {
+export interface MusicControlTurboInterface extends TurboModule {
   // Core playback control methods
   enableBackgroundMode(enable: boolean): void;
   setNowPlaying(info: {
@@ -52,4 +52,4 @@ export interface Spec extends TurboModule {
 }
 
 // Use get instead of getEnforcing to avoid forcing codegen
-export default TurboModuleRegistry.get<Spec>('MusicControlManager');
+export default TurboModuleRegistry.get<MusicControlTurboInterface>('MusicControlManager');

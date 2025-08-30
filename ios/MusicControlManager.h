@@ -10,7 +10,7 @@
 
 @interface MusicControlManager : RCTEventEmitter <RCTBridgeModule
 #ifdef RCT_NEW_ARCH_ENABLED
-, RCTTurboModule, NativeMusicControlSpec
+, RCTTurboModule, MusicControlTurboInterface
 #endif
 >
 
