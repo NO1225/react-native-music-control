@@ -1,6 +1,6 @@
 {
   "name": "@no1225/react-native-music-control",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "Add information on lockscreen and control playing music",
   "main": "lib/index.js",
   "types": "./lib/index.d.ts",
