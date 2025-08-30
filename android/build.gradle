@@ -19,8 +19,9 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'com.facebook.react'
 
-// Note: React Native Codegen plugin is optional for our implementation
+// Note: React Native Codegen plugin is enabled for autolinking support
 // We provide manual TurboModule implementation for better compatibility
 
 android {
@@ -73,11 +74,11 @@ dependencies {
 }
 
 // Codegen configuration for New Architecture
-// Note: We provide our own TurboModule implementation, so Codegen is optional
-// if (isNewArchitectureEnabled()) {
-//     react {
-//         jsRootDir = file("../src/")
-//         libraryName = "RNMusicControlSpec"
-//         codegenJavaPackageName = "com.tanguyantoine.react"
-//     }
-// }
+// Enable codegen for autolinking compatibility
+if (isNewArchitectureEnabled()) {
+    react {
+        jsRootDir = file("../src/")
+        libraryName = "RNMusicControlSpec"
+        codegenJavaPackageName = "com.tanguyantoine.react"
+    }
+}

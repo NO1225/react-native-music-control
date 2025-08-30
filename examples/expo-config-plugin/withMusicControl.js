@@ -1,21 +1,31 @@
 const { withAndroidManifest, withInfoPlist, withMainApplication } = require('@expo/config-plugins');
 
 /**
- * Expo config plugin for react-native-music-control
+ * Expo config plugin for @no1225/react-native-music-control
  * 
  * This plugin configures the necessary permissions and settings
- * for react-native-music-control to work in an Expo development build.
+ * for @no1225/react-native-music-control to work in an Expo development build.
  * 
  * The module registration is handled automatically by React Native autolinking.
  * This plugin only adds the required permissions and configurations.
  * 
  * Usage:
- * 1. Copy this file to your Expo project (e.g., plugins/withMusicControl.js)
- * 2. Add "./plugins/withMusicControl" to the plugins array in your app.json
- * 3. Run `expo prebuild` to generate the native code
- * 4. Run `expo run:ios` or `expo run:android`
+ * 1. Install: npm install @no1225/react-native-music-control
+ * 2. Copy this file to your Expo project (e.g., plugins/withMusicControl.js)
+ * 3. Add "./plugins/withMusicControl" to the plugins array in your app.json
+ * 4. Run `expo prebuild` to generate the native code
+ * 5. Run `expo run:ios` or `expo run:android`
+ * 
+ * MIGRATION NOTE:
+ * If upgrading from a version that used manual linking:
+ * 1. Remove any manual registration code from MainApplication.java
+ * 2. Remove react-native.config.js autolinking disable
+ * 3. Run `npx react-native clean` and rebuild
  */
 module.exports = function withMusicControl(config) {
+  // Note: This plugin requires @no1225/react-native-music-control to be installed
+  // and React Native autolinking to be enabled (default in RN 0.60+)
+  
   // Configure Android
   config = withAndroidManifest(config, (config) => {
     const androidManifest = config.modResults;
